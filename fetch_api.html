@@ -6,7 +6,12 @@
 <p id="demo">Fetch a file to change this text.</p>
 
 <script>
-
+    async function fetchData(file) {
+        let response = await fetch(file);
+        let data = await response.text();
+        document.getElementById("demo").innerHTML = some;
+    }
+    fetchData("fetch_info.txt")
 
 
 </script>
