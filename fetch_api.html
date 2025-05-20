@@ -6,12 +6,75 @@
 <p id="demo">Fetch a file to change this text.</p>
 
 <script>
-    async function fetchData(file) {
-        let response = await fetch(file);
-        let data = await response.text();
-        document.getElementById("demo").innerHTML = some;
+    // 非同步function，使用async/await，不要用then()
+    // 這個function可以接收本地檔案，轉json後顯示在網頁
+    // async function fetchData(file) {
+    //     try {
+    //         // 使用fetch()方法獲取檔案
+    //         const response = await fetch(file);
+    //         // 檢查回應狀態
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok ' + response.statusText);
+    //         }
+    //         // 轉換回應為JSON格式
+    //         const data = await response.json();
+    //         // 將獲取的資料顯示在網頁上
+    //         document.getElementById("demo").innerHTML = data.title;
+    //     } catch (error) {
+    //         // 錯誤處理
+    //         console.error('There has been a problem with your fetch operation:', error);
+    //         document.getElementById("demo").innerHTML = "Error: " + error.message;
+    //     }
+    // }
+    // // 呼叫fetchData函數，傳入檔案路徑
+    // fetchData();
+
+    // function myDisplayer(some) {
+    //     document.getElementById("demo").innerHTML = some;
+    // }
+    // // use fetch() to get the file
+    //
+    // async function getHTML(myCallback) {
+    //     let response = await fetch('mycar.html');
+    //     let data = await response.text();
+    //     myCallback(data);
+    // }
+    //
+    // getHTML(myDisplayer);
+
+
+
+    // 非同步function，使用async/await，不要用then
+    // 這個function傳進一個callback函數，然後fetch一個mycar.html
+    // 將mycar.html檔案的文字傳給callback函數
+    // 設計替換html的文字的function
+    // 呼叫fetchCarData函數，傳入替換文字的callback函數
+    async function fetchCarData(callback) {
+        try {
+            // 使用fetch()方法獲取檔案
+            const response = await fetch('mycar.html');
+            // 檢查回應狀態
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            // 轉換回應為文字格式
+            const data = await response.text();
+            // 將獲取的資料傳給callback函數
+            callback(data);
+        } catch (error) {
+            // 錯誤處理
+            console.error('There has been a problem with your fetch operation:', error);
+        }
     }
-    fetchData("fetch_info.txt")
+    // 設計替換html的文字的function
+    function replaceText(text) {
+        // 將獲取的資料顯示在網頁上
+        document.getElementById("demo").innerHTML = text;
+    }
+    // 呼叫fetchCarData函數，傳入替換文字的callback函數
+    fetchCarData(replaceText);
+
+
 
 
 </script>
